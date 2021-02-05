@@ -1,4 +1,5 @@
-import {Component} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
+import { ActivatedRoute, Params } from '@angular/router'
 import {PostsService} from '../posts.service'
 
 @Component({
@@ -6,6 +7,15 @@ import {PostsService} from '../posts.service'
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss']
 })
-export class PostsComponent {
-  constructor(public postsService: PostsService) {}
+export class PostsComponent implements OnInit {
+  showIds: Boolean = false
+
+  constructor(
+    public postsService: PostsService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params: Params) => this.showIds = !!params.showIds)
+  }
 }
