@@ -10,9 +10,7 @@ import { Post, PostsService } from '../posts.service';
 export class PostComponent implements OnInit {
   post: Post
 
-  constructor(private route: ActivatedRoute,
-      private router: Router,
-      private postsService: PostsService) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.post = {
       title: '',
       text: '',
@@ -21,9 +19,7 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.post = this.postsService.getById(+params.id)
-    })
+    this.route.data.subscribe(data => this.post = data.post)
   }
 
   getFirstPost(): void {
